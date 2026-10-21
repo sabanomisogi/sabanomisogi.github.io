@@ -1,0 +1,5 @@
+# Unencrypted bonus files. Only the encrypted output in yadorimono/files/ is published.
+private/
+
+# Local preview settings
+.claude/
