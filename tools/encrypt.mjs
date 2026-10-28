@@ -8,7 +8,7 @@
 // The output folder is emptied of old *.bin files, then gets index.json, manifest.bin and one .bin per file.
 //
 // Format: PBKDF2-SHA256 (salt in index.json) -> AES-256-GCM. Each .bin is a 12-byte IV followed by the ciphertext.
-// The pages (unlock.v2.js) must use the same normalizePassword().
+// The pages (unlock.v3.js) must use the same normalizePassword().
 
 import { webcrypto as crypto } from "node:crypto";
 import { mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";

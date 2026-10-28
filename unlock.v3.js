@@ -1,6 +1,7 @@
 // Unlock the bonus files in the browser. Shared by every bonus page (yadorimono/, sabakan/, ...):
 // files are fetched from the page's own files/ as AES-GCM blobs (see tools/encrypt.mjs)
 // and decrypted here; the password never leaves the page.
+// While a password is checked or a file is read, the status line shows the can-opener from site.v1.js.
 (function () {
   "use strict";
 
@@ -17,9 +18,19 @@
     return s.normalize("NFKC").trim().toLowerCase();
   }
 
-  function status(message, isError) {
-    statusEl.textContent = message;
-    statusEl.classList.toggle("error", !!isError);
+  const spinEl = document.createElement("span");
+  spinEl.className = "status__spin";
+  spinEl.setAttribute("aria-hidden", "true");
+  spinEl.innerHTML = (window.SabaOpener && window.SabaOpener.markup) || "";
+  const textEl = document.createElement("span");
+  statusEl.textContent = "";
+  statusEl.append(spinEl, textEl);
+
+  // kind: "error", "busy" (shows the opener) or nothing.
+  function status(message, kind) {
+    textEl.textContent = message;
+    statusEl.classList.toggle("error", kind === "error");
+    statusEl.classList.toggle("busy", kind === "busy");
   }
 
   function formatSize(bytes) {
@@ -79,12 +90,12 @@
       btn.textContent = "保存";
       btn.addEventListener("click", async () => {
         btn.disabled = true;
-        status(f.name + " を読み込んでいます…（" + formatSize(f.size) + "）");
+        status(f.name + " を読み込んでいます…（" + formatSize(f.size) + "）", "busy");
         try {
           save(f.name, await open(await fetchBytes(f.file)));
           status(f.name + " を保存しました。");
         } catch (err) {
-          status(f.name + " を読み込めませんでした。通信を確かめて、もう一度押してください。（" + err.message + "）", true);
+          status(f.name + " を読み込めませんでした。通信を確かめて、もう一度押してください。（" + err.message + "）", "error");
         } finally {
           btn.disabled = false;
         }
@@ -98,19 +109,19 @@
   form.addEventListener("submit", async (ev) => {
     ev.preventDefault();
     if (!window.crypto || !crypto.subtle) {
-      status("このブラウザでは開けません。新しめの Chrome・Edge・Safari・Firefox で開いてください。", true);
+      status("このブラウザでは開けません。新しめの Chrome・Edge・Safari・Firefox で開いてください。", "error");
       return;
     }
     if (!normalizePassword(input.value)) {
-      status("パスワードを入れてください。", true);
+      status("パスワードを入れてください。", "error");
       return;
     }
     button.disabled = true;
-    status("確かめています…");
+    status("確かめています…", "busy");
     try {
       const res = await fetch(BASE + "index.json", { cache: "no-cache" });
       if (res.status === 404) {
-        status("電子特典はまだ準備中です。公開までお待ちください。", true);
+        status("電子特典はまだ準備中です。公開までお待ちください。", "error");
         return;
       }
       if (!res.ok) throw new Error("HTTP " + res.status);
@@ -120,7 +131,7 @@
         manifest = JSON.parse(new TextDecoder().decode(await open(await fetchBytes("manifest.bin"))));
       } catch (err) {
         if (err.name === "OperationError") {
-          status("パスワードが違います。打ち間違いがないか確かめてください。", true);
+          status("パスワードが違います。打ち間違いがないか確かめてください。", "error");
           return;
         }
         throw err;
@@ -130,7 +141,7 @@
         ? "開きました。必要なものを「保存」してください。"
         : "電子特典はまだ準備中です。公開までお待ちください。");
     } catch (err) {
-      status("読み込めませんでした。通信を確かめて、もう一度試してください。（" + err.message + "）", true);
+      status("読み込めませんでした。通信を確かめて、もう一度試してください。（" + err.message + "）", "error");
     } finally {
       button.disabled = false;
     }

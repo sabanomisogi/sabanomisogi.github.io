@@ -5,75 +5,268 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>鯖の禊 | TRPG サークル</title>
 <meta name="description" content="TRPG サークル「鯖の禊」のサイトです。TRPG アンソロジー『鯖缶』、新クトゥルフ神話TRPG シナリオ『宿りもの』、クトゥルフ神話TRPG シナリオ『昨日の貴女と明日の君へ』を頒布します。">
+<meta name="theme-color" content="#1c5da8">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="鯖の禊">
 <meta property="og:title" content="鯖の禊">
 <meta property="og:description" content="TRPG サークル「鯖の禊」。TRPG アンソロジー『鯖缶』、シナリオ『宿りもの』『昨日の貴女と明日の君へ』を頒布します。">
 <meta property="og:url" content="https://sabanomisogi.github.io/">
+<meta property="og:image" content="https://sabanomisogi.github.io/ogp.png">
 <meta property="og:locale" content="ja_JP">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="site.v1.css">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="site.v2.css">
+<script>
+  // Show the can-opener intro once per session, never with reduced motion. site.v1.js lets it be skipped.
+  try {
+    if (!sessionStorage.getItem("sbm.intro") && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.documentElement.classList.add("intro-on");
+      sessionStorage.setItem("sbm.intro", "1");
+      // Never leave the overlay up, even when animations do not run or site.v1.js fails to load.
+      setTimeout(function () { document.documentElement.classList.remove("intro-on"); }, 2400);
+    }
+  } catch (e) { /* storage blocked: no intro */ }
+</script>
 </head>
 <body>
-<header>
-  <div class="wrap">
-    <h1>鯖の禊</h1>
-    <p class="lead">TRPG の本を作っているサークルです。</p>
+<div class="intro" aria-hidden="true">
+  <svg class="opener opener--intro" viewBox="0 0 140 140" focusable="false">
+    <circle class="opener__rim" cx="70" cy="70" r="46"/>
+    <circle class="opener__inside" cx="70" cy="70" r="40"/>
+    <path class="opener__fish-body" d="M38 72c9-13 32-18 52-8l13-9v24l-13-8c-20 10-43 6-52-1z"/>
+    <path class="opener__fish-belly" d="M42 75c13 6 31 5 46-2-16 4-32 4-46 2z"/>
+    <path class="opener__fish-stripe" d="M54 64q3 4 0 8M62 61q3 4 0 9M70 60q3 4 0 9M78 61q3 4 0 8"/>
+    <circle cx="45" cy="69" r="2.2" fill="#fff"/>
+    <g class="opener__lid">
+      <circle class="opener__lid-face" cx="70" cy="70" r="40"/>
+      <circle class="opener__ring" cx="70" cy="70" r="31"/>
+      <circle class="opener__ring" cx="70" cy="70" r="21"/>
+    </g>
+    <circle class="opener__cut" cx="70" cy="70" r="42" transform="rotate(-90 70 70)"/>
+    <g class="opener__tool"><g class="opener__lever">
+      <path class="opener__blade" d="M66.5 19h7l-3.5 10.5z"/>
+      <rect class="opener__handle" x="68" y="13" width="34" height="10" rx="5" transform="rotate(-14 70 18)"/>
+      <circle class="opener__pivot" cx="70" cy="18" r="3.2"/>
+    </g></g>
+  </svg>
+  <p class="intro__text">開缶中…</p>
+  <p class="intro__skip">タップで飛ばせます</p>
+</div>
+
+<a class="skip" href="#main">本文へ</a>
+<header class="site-header">
+  <div class="wrap site-header__in">
+    <a class="brand" href="./"><img src="img/logo-wordmark.png" alt="鯖の禊" width="421" height="134"></a>
+    <nav class="gnav" aria-label="サイト内">
+      <a href="./" aria-current="page">ホーム</a>
+      <a href="books/">本の紹介</a>
+      <a href="bonus/">特典<span class="long">の受け取り</span></a>
+      <a href="rights/">権利表記</a>
+    </nav>
   </div>
 </header>
 
-<main class="wrap">
-  <section>
-    <h2>頒布物</h2>
-    <p>2026年11月14日の TRPGサミットでは、スペース A29 で頒布します。</p>
-    <div class="card">
-      <h3>鯖缶</h3>
-      <p>TRPG アンソロジー。クトゥルフ神話TRPG（第6版）と新クトゥルフ神話TRPG（第7版）のシナリオを3本収録。</p>
-      <dl class="spec">
-        <dt>収録</dt><dd>取引の籠の中で — shiki365（6版・3〜4人・約4〜6時間）<br>ミスターナイフ、わたしを助けて — 久崎碧斗（7版・1人・約3時間）<br>實は腐落ち花が咲く — 伊井丗えびす（7版・2人・約3時間）</dd>
-        <dt>頒布</dt><dd>新刊（2026年11月14日 TRPGサミット）</dd>
-        <dt>仕様</dt><dd>B5・46ページ</dd>
-      </dl>
-      <p style="margin-top:12px"><a class="btn" href="sabakan/">本をお持ちの方: 電子特典の受け取り</a></p>
+<main id="main">
+  <section class="hero">
+    <div class="wrap hero__in">
+      <div class="hero__text">
+        <p class="eyebrow">TRPG CIRCLE</p>
+        <h1 class="hero__logo"><img src="img/logo-mascot.png" alt="鯖の禊" width="433" height="472"></h1>
+        <p class="hero__lead">TRPG の本を作っているサークルです。</p>
+        <p class="hero__sub">クトゥルフ神話TRPG のシナリオ本を、新刊2冊・既刊1冊持っていきます。</p>
+        <a class="ticket" href="https://trpg-summit.com/2026/">
+          <span class="ticket__date"><b>11.14</b><span>SAT</span></span>
+          <span class="ticket__body">
+            <span class="ticket__label">NEXT EVENT</span>
+            <span class="ticket__name">TRPGサミット 2026</span>
+            <span class="ticket__meta">池袋・サンシャインシティ 展示ホールD<br>11:00〜17:00</span>
+            <span class="ticket__space">スペース <b>A29</b></span>
+          </span>
+        </a>
+        <div class="hero__actions">
+          <a class="btn" href="books/">本の紹介を見る <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn btn--ghost" href="bonus/">電子特典の受け取り</a>
+        </div>
+      </div>
+      <div class="hero__books" aria-hidden="true">
+        <img class="hero__cover hero__cover--l" src="img/cover-kinou-ashita-360.jpg" srcset="img/cover-kinou-ashita-360.jpg 360w, img/cover-kinou-ashita-720.jpg 720w" sizes="200px" alt="" width="360" height="508">
+        <img class="hero__cover hero__cover--r" src="img/cover-yadorimono-360.jpg" srcset="img/cover-yadorimono-360.jpg 360w, img/cover-yadorimono-720.jpg 720w" sizes="200px" alt="" width="360" height="508">
+        <img class="hero__cover hero__cover--c" src="img/cover-sabakan-360.jpg" srcset="img/cover-sabakan-360.jpg 360w, img/cover-sabakan-720.jpg 720w" sizes="200px" alt="" width="360" height="508">
+      </div>
     </div>
-    <div class="card">
-      <h3>宿りもの</h3>
-      <p>新クトゥルフ神話TRPG シナリオ。4人用・HO制、12〜15時間（2日に分けて遊びます）。著: shiki365</p>
-      <dl class="spec">
-        <dt>頒布</dt><dd>新刊（2026年11月14日 TRPGサミット）</dd>
-        <dt>仕様</dt><dd>B5・72ページ</dd>
-        <dt>配信</dt><dd>可</dd>
-      </dl>
-      <p style="margin-top:12px"><a class="btn" href="yadorimono/">本をお持ちの方: 電子特典の受け取り</a></p>
-    </div>
-    <div class="card">
-      <h3>昨日の貴女と明日の君へ</h3>
-      <p>クトゥルフ神話TRPG（第6版）シナリオ。基本ルールブックだけで遊べます。4人固定・約8時間。著: 伊井丗えびす・久崎碧斗・令和豆腐（企画: 鯖の禊）</p>
-      <dl class="spec">
-        <dt>頒布</dt><dd>既刊（2026年11月14日 TRPGサミット）</dd>
-        <dt>仕様</dt><dd>B5</dd>
-        <dt>配信</dt><dd>可（全面的に許可。シナリオの改変も自由）</dd>
-      </dl>
-      <p style="margin-top:12px"><a class="btn" href="kinou-ashita/">本をお持ちの方: 電子特典の受け取り</a></p>
+    <div class="saba-band" aria-hidden="true"></div>
+  </section>
+
+  <section class="section section--tight" aria-label="ジョーク広告">
+    <div class="wrap">
+      <a class="ad ad--sabakan" href="books/#sabakan">
+        <span class="ad__label">広告</span>
+        <svg class="sabakan-ad__can" viewBox="0 0 100 112" aria-hidden="true" focusable="false">
+          <path d="M10 24v70a40 11 0 0 0 80 0V24z" fill="#51b98d"/>
+          <path d="M10 30h80M10 36h80M10 82h80M10 88h80" stroke="#3a9c74" stroke-width="2"/>
+          <path d="M10 42h80v34H10z" fill="#fff"/>
+          <text x="50" y="66" text-anchor="middle" font-size="19" font-weight="900" fill="#0d2236">鯖缶</text>
+          <path d="M14 24v70" stroke="#fff" stroke-opacity=".35" stroke-width="5"/>
+          <ellipse cx="50" cy="24" rx="40" ry="11" fill="#e1e9ee" stroke="#8ea3b1" stroke-width="2"/>
+          <ellipse cx="50" cy="24" rx="31" ry="8" fill="none" stroke="#b7c7d1" stroke-width="1.6"/>
+          <path d="M57 19q10-7 17 0-7 5-17 0z" fill="#cfdbe2" stroke="#8ea3b1" stroke-width="1.6"/>
+        </svg>
+        <span class="sabakan-ad__copy">
+          <span class="sabakan-ad__catch">狂気的な<br>ウマさ<em>！！</em></span>
+          <span class="sabakan-ad__sub">TRPG アンソロジー『鯖缶』 <span class="nowrap">シナリオ3本入り</span></span>
+        </span>
+        <span class="sabakan-ad__burst" aria-hidden="true">新刊</span>
+        <span class="ad__cta">いますぐチェック <span aria-hidden="true">›</span></span>
+        <small class="sabakan-ad__note">※個人の感想です</small>
+      </a>
     </div>
   </section>
 
-  <section id="contact">
-    <h2>連絡先</h2>
-    <p>メール: <a href="mailto:57sabamiso423@gmail.com">57sabamiso423@gmail.com</a></p>
+  <section class="section" id="books">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow">BOOKS</p>
+        <h2>頒布物</h2>
+        <p class="section__lead">TRPGサミット（11月14日・スペース A29）で頒布します。</p>
+      </div>
+      <ul class="book-grid">
+        <li class="book-card">
+          <a href="books/#sabakan">
+            <figure class="book-card__cover"><img src="img/cover-sabakan-360.jpg" srcset="img/cover-sabakan-360.jpg 360w, img/cover-sabakan-720.jpg 720w" sizes="(max-width: 640px) 116px, 200px" alt="『鯖缶』の表紙" width="360" height="508" loading="lazy"></figure>
+            <div class="book-card__body">
+              <ul class="tags"><li class="tag tag--new">新刊</li><li class="tag tag--line">6版・7版</li></ul>
+              <h3>鯖缶</h3>
+              <p>TRPG アンソロジー。シナリオ3本を収録。B5・46ページ</p>
+              <p class="book-card__more">くわしく見る →</p>
+            </div>
+          </a>
+        </li>
+        <li class="book-card">
+          <a href="books/#yadorimono">
+            <figure class="book-card__cover"><img src="img/cover-yadorimono-360.jpg" srcset="img/cover-yadorimono-360.jpg 360w, img/cover-yadorimono-720.jpg 720w" sizes="(max-width: 640px) 116px, 200px" alt="『宿りもの』の表紙" width="360" height="508" loading="lazy"></figure>
+            <div class="book-card__body">
+              <ul class="tags"><li class="tag tag--new">新刊</li><li class="tag tag--line">7版</li><li class="tag tag--line">配信可</li></ul>
+              <h3>宿りもの</h3>
+              <p>4人用・HO制の長編シナリオ。12〜15時間。B5・72ページ</p>
+              <p class="book-card__more">くわしく見る →</p>
+            </div>
+          </a>
+        </li>
+        <li class="book-card">
+          <a href="books/#kinou-ashita">
+            <figure class="book-card__cover"><img src="img/cover-kinou-ashita-360.jpg" srcset="img/cover-kinou-ashita-360.jpg 360w, img/cover-kinou-ashita-720.jpg 720w" sizes="(max-width: 640px) 116px, 200px" alt="『昨日の貴女と明日の君へ』の表紙" width="360" height="508" loading="lazy"></figure>
+            <div class="book-card__body">
+              <ul class="tags"><li class="tag tag--old">既刊</li><li class="tag tag--line">6版</li><li class="tag tag--line">配信可</li></ul>
+              <h3>昨日の貴女と明日の君へ</h3>
+              <p>4人固定・約8時間。基本ルールブックだけで遊べます。B5</p>
+              <p class="book-card__more">くわしく見る →</p>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
   </section>
 
-  <section>
-    <h2>メンバーのページ</h2>
-    <p><a href="https://shiki365.github.io/">shiki365 のツール置き場</a> — TRPG のオンセや配信で使える無料ツール</p>
+  <section class="section section--tight" aria-label="ジョーク広告">
+    <div class="wrap">
+      <p class="ad-zone__label">スポンサーリンク</p>
+      <div class="ad-row">
+        <div class="ad ad--apology" data-ad="bow" role="img" aria-label="ジョーク広告：鯖からのお詫び「すいませんでした」">
+          <span class="ad__label">広告</span>
+          <div class="apology">
+            <p class="apology__title">お詫び</p>
+            <p class="apology__body">すいません<br>でした</p>
+            <p class="apology__date">令和八年十月</p>
+            <p class="apology__by">鯖</p>
+          </div>
+          <span class="ad__toast">この広告は押せません（反省中）</span>
+        </div>
+        <a class="ad ad--no" href="https://sabunomisogi.booth.pm/" data-ad="spin" aria-label="ジョーク広告：「の」（鯖の禊の BOOTH へ）">
+          <span class="ad__label">広告</span>
+          <span class="no-glyph" aria-hidden="true">の</span>
+          <span class="ad__sponsor">提供：の</span>
+        </a>
+        <a class="ad ad--misogi" href="books/" aria-label="ジョーク広告：禊より「まあ、ゆるしてやってください」（本の紹介へ）">
+          <span class="ad__label">広告</span>
+          <span class="misogi__falls" aria-hidden="true"></span>
+          <svg class="misogi__shide" viewBox="0 0 92 30" aria-hidden="true" focusable="false">
+            <path d="M3 5q43 7 86 0" fill="none" stroke="#b49562" stroke-width="3.2" stroke-linecap="round"/>
+            <path d="M27 8v6h7l-7 7h7l-7 7M61 8v6h7l-7 7h7l-7 7" fill="none" stroke="#1c5da8" stroke-width="2.2" stroke-linejoin="round"/>
+          </svg>
+          <span class="misogi__copy"><small>まあ、</small>ゆるして<br>やってください</span>
+          <span class="misogi__foot"><span class="misogi__seal">禊</span><span class="ad__cta">おわびの品を見る <span aria-hidden="true">›</span></span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="callout">
+        <svg class="opener opener--open callout__icon" viewBox="0 0 140 140" aria-hidden="true" focusable="false">
+          <circle class="opener__rim" cx="70" cy="70" r="46"/>
+          <circle class="opener__inside" cx="70" cy="70" r="40"/>
+          <path class="opener__fish-body" d="M38 72c9-13 32-18 52-8l13-9v24l-13-8c-20 10-43 6-52-1z"/>
+          <path class="opener__fish-stripe" d="M54 64q3 4 0 8M62 61q3 4 0 9M70 60q3 4 0 9M78 61q3 4 0 8"/>
+          <circle cx="45" cy="69" r="2.2" fill="#fff"/>
+          <g class="opener__lid"><circle class="opener__lid-face" cx="70" cy="70" r="40"/><circle class="opener__ring" cx="70" cy="70" r="31"/><circle class="opener__ring" cx="70" cy="70" r="21"/></g>
+        </svg>
+        <div>
+          <h2>本を手に取ってくださった方へ</h2>
+          <p>本ごとのパスワードで、電子特典を受け取れます。</p>
+        </div>
+        <a class="btn" href="bonus/">電子特典の受け取り <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--mist" id="contact">
+    <div class="wrap about">
+      <div>
+        <p class="eyebrow">ABOUT</p>
+        <h2>サークルについて</h2>
+        <p>鯖の禊（さばのみそぎ）は、TRPG の本を作っているサークルです。ご連絡はメールでどうぞ。</p>
+      </div>
+      <ul class="link-list">
+        <li><a href="mailto:57sabamiso423@gmail.com"><span class="k">メール</span><span class="v">57sabamiso423@gmail.com</span></a></li>
+        <li><a href="https://sabunomisogi.booth.pm/"><span class="k">BOOTH</span><span class="v">鯖の禊のショップ</span></a></li>
+        <li><a href="https://shiki365.github.io/"><span class="k">メンバー</span><span class="v">shiki365 のツール置き場</span></a></li>
+      </ul>
+    </div>
   </section>
 </main>
 
-<footer>
-  <div class="wrap">
+<div class="footer-band footer-band--mist"><div class="saba-band" aria-hidden="true"></div></div>
+<footer class="site-footer">
+  <div class="wrap footer__in">
+    <div class="footer__brand">
+      <img src="img/logo-wordmark.png" alt="鯖の禊" width="421" height="134" loading="lazy">
+      <p>TRPG の本を作っているサークルです。</p>
+    </div>
+    <nav aria-label="フッター">
+      <h2>PAGES</h2>
+      <ul>
+        <li><a href="./">ホーム</a></li>
+        <li><a href="books/">本の紹介</a></li>
+        <li><a href="bonus/">電子特典の受け取り</a></li>
+        <li><a href="rights/">権利表記</a></li>
+      </ul>
+    </nav>
+    <div>
+      <h2>LINKS</h2>
+      <ul>
+        <li><a href="https://sabunomisogi.booth.pm/">BOOTH</a></li>
+        <li><a href="https://trpg-summit.com/2026/">TRPGサミット 2026</a></li>
+        <li><a href="mailto:57sabamiso423@gmail.com">メール</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer__rights">
+    <p>このサイトで紹介している作品は、『クトゥルフ神話TRPG』シリーズの二次創作物です。→ <a href="rights/">権利表記</a></p>
     <p>© 2026 鯖の禊</p>
   </div>
 </footer>
+<script src="site.v1.js"></script>
 </body>
 </html>
