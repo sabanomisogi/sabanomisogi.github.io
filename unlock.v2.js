@@ -1,5 +1,6 @@
-// Unlock the bonus files in the browser. Files are fetched from files/ as AES-GCM blobs
-// (see tools/encrypt.mjs) and decrypted here; the password never leaves the page.
+// Unlock the bonus files in the browser. Shared by every bonus page (yadorimono/, sabakan/, ...):
+// files are fetched from the page's own files/ as AES-GCM blobs (see tools/encrypt.mjs)
+// and decrypted here; the password never leaves the page.
 (function () {
   "use strict";
 
@@ -119,7 +120,7 @@
         manifest = JSON.parse(new TextDecoder().decode(await open(await fetchBytes("manifest.bin"))));
       } catch (err) {
         if (err.name === "OperationError") {
-          status("パスワードが違います。本の「電子特典」のページを確かめてください。", true);
+          status("パスワードが違います。打ち間違いがないか確かめてください。", true);
           return;
         }
         throw err;
