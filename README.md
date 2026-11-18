@@ -13,7 +13,8 @@ TRPG サークル「鯖の禊」のサイト。素の HTML・CSS・JavaScript（
 - `404.html` — 見つからないページ。どの階層でも出るので、中のリンクは `/` から書く
 - `site.v2.css` — 共通のスタイル（白・青・緑）。直したら `?v=` かファイル名の番号を上げる
 - `site.v1.js` — 缶切りの絵、初回演出の飛ばし方、ジョーク広告の動き（お辞儀・くるくる）
-- `unlock.v3.js` — 受け取りページで共通の、ブラウザの中で開く処理。確かめている間は缶切りが回る。直したらファイル名の番号を上げる
+- `unlock.v3.js` — 受け取りページで共通の、ブラウザの中で開く処理。確かめている間は缶切りが回る。直したらファイル名の番号を上げる（鯖缶・昨日のページが使う）
+- `unlock.v4.js` — v3 に、1ページに一覧を複数出す仕組みを足したもの（`data-files="files/"` などの欄ごとに別のフォルダを開く）。一覧が1つのページでも v3 と同じに動く。`yadorimono/` が使う（7版用 `files/` と6版用 `files6/`）
 - `img/` — 表紙（360px・720px）とロゴ。元の画像は OneDrive の `デスクトップ\TRPG\` と、昨日の貴女と明日の君への PDF
 - `ogp.png`（1200×630。SNS で共有したときのカード）
 - アイコン — サークルのメンバーが描いたもの（青→緑の地に「さばの／みそぎ」と白い鯖）。2000px の元画像から、それぞれの大きさに縮めて書き出した。絵が変わったら全部作り直す
@@ -27,6 +28,7 @@ TRPG サークル「鯖の禊」のサイト。素の HTML・CSS・JavaScript（
 
 ```
 node tools/encrypt.mjs private/yadorimono yadorimono/files
+node tools/encrypt.mjs private/yadorimono6 yadorimono/files6
 node tools/encrypt.mjs private/sabakan sabakan/files
 node tools/encrypt.mjs private/kinou-ashita kinou-ashita/files
 ```
@@ -37,3 +39,4 @@ node tools/encrypt.mjs private/kinou-ashita kinou-ashita/files
 - 出力先の古い `.bin` は消してから作り直す。差し替えのたびに全部を暗号化し直す
 - 暗号: PBKDF2-SHA256（60万回）→ AES-256-GCM。照合の前にパスワードを NFKC・前後の空白除去・小文字にそろえる（全角や大文字で打っても通る）
 - 1ファイル 100MB まで（GitHub の上限）
+- 『宿りもの』は7版用（`private/yadorimono` → `yadorimono/files`）と6版用（`private/yadorimono6` → `yadorimono/files6`）を、同じパスワードで別々に暗号化する。片方だけ差し替えるときは、そちらだけ作り直せばよい
